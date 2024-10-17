@@ -90,6 +90,14 @@ echo -e "${LIGHT_BLUE}"
 sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
 echo -e "${NC}"
 
+# Remove Kubernetes 
+echo -e "${YELLOW}---------------------------------------------------------------------------------------------------------------------${NC}"
+echo -e "${LIGHT_GREEN}Removing kubernetes...${NC}"
+echo -e "${LIGHT_BLUE}"
+sudo rm /etc/apt/sources.list.d/kubernetes.list
+echo -e "${NC}"
+
+
 # Docker installation
 echo -e "${YELLOW}---------------------------------------------------------------------------------------------------------------------${NC}"
 echo -e "${LIGHT_GREEN}Installing Docker...${NC}"
@@ -151,10 +159,9 @@ echo -e "${NC}"
 echo -e "${LIGHT_GREEN}Installing Kubernetes (K8s)...${NC}"
 echo -e "${YELLOW}---------------------------------------------------------------------------------------------------------------------${NC}"
 echo -e "${LIGHT_BLUE}"
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/kubernetes-archive-keyring.gpg > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-jammy main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt install snapd
 sudo apt update
-sudo apt install -y kubelet kubeadm kubectl
+sudo snap install kubelet --classic & sudo snap install kubeadm --classic & sudo snap install kubectl --classic
 sudo systemctl enable kubelet
 sudo apt-mark hold kubelet kubeadm kubectl
 echo -e "${NC}"
